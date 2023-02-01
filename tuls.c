@@ -5,18 +5,18 @@
 #include <string.h>//to use strcat to append the path
 
 
-void tuls(const char *string);
-void recursiveDir(const char *string, const char *string1);
+void tuls(const char *string);//Prints out current dir
+void recursiveDir(const char *string, const char *string1);//checks for recursion if arguments
 
-int checkDir(const char *string);
+int checkDir(const char *string);//checks if it is a directory
 
 int main(int argc, char const *argv[]) {
     //Prompts error if invalid number of arguments
-    if(argc < 0){
+    if(argc < 0){//error if invalid arguements
         perror("Invalid number of arguments. Program failed.");
         exit(EXIT_FAILURE);
     }
-    else if(argc > 2){
+    else if(argc > 2){//error if invalid arguments
         perror("Invalid number of arguments. Program failed.");
         exit(EXIT_FAILURE);
     }
@@ -25,21 +25,18 @@ int main(int argc, char const *argv[]) {
    else if(argc == 0 || argc == 1){
         tuls(".");
    }
+   //Recursion for more than 1 argument
    else if(argc == 2){
        tuls(".");
       recursiveDir(argv[1], ".");
 
    }
 
-    //tuls(".");
-    //tuls("..");
-
-
     return 0;
 }
 
 void recursiveDir(const char *string, const char *dir) {
-
+    //Almost same process as tuls
     //list the directoru
     struct dirent *d;
     DIR *dh = opendir(dir);
@@ -62,13 +59,14 @@ void recursiveDir(const char *string, const char *dir) {
         else{
             printf("%s \n", d->d_name);
 
+            //Initiates true or false for directory
             int ret = 1;
             ret = checkDir(dir);
-            //if((d = readdir(dh)) == DT_DIR){
+            //if 0-> directory: if 1->no directory
             if(ret == 0){
                 //array size recomended from discord
                 char path[4096] = {0};
-                strcat(path, dir);
+                strcat(path, dir);//appends path to add directory
                 strcat(path,"/");
                 strcat(path, (d=readdir(dh)->d_name));
                 tuls(path);
@@ -129,5 +127,8 @@ int checkDir(const char *filename) {
     stat(filename, &path);
     return S_ISREG(path.st_mode);
 }
+
+
+
 
 

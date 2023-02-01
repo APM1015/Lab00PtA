@@ -9,7 +9,7 @@ void tuls(const char *string);
 
 int main(int argc, char const *argv[]) {
     //Prompts error if invalid number of arguments
-    /*if(argc < 0){
+    if(argc < 0){
         perror("Invalid number of arguments. Program failed.");
         exit(EXIT_FAILURE);
     }
@@ -18,7 +18,7 @@ int main(int argc, char const *argv[]) {
     if(argc == 0 || argc >= 1){
         tuls(".");
     }
-     */
+
     tuls(".");
     return 0;
 }

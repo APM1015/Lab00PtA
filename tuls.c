@@ -19,7 +19,7 @@ int main(int argc, char const *argv[]) {
         tuls(".");
     }
 
-    tuls(".");
+    
     return 0;
 }
 

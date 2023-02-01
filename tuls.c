@@ -6,7 +6,9 @@
 
 
 void tuls(const char *string);
-//void recursiveDir(const char *string);
+void recursiveDir(const char *string, const char *string1);
+
+int checkDir(const char *string);
 
 int main(int argc, char const *argv[]) {
     //Prompts error if invalid number of arguments
@@ -20,14 +22,14 @@ int main(int argc, char const *argv[]) {
     }
     //No recursion since 0 arguments
     //Lists all directory
-   else if(argc == 0 || argc >= 1){
+   else if(argc == 0 || argc == 1){
         tuls(".");
    }
-   //else if(argc == 2){
-      // tuls(".");
-      // recursiveDir(argv[1]);
+   else if(argc == 2){
+       tuls(".");
+      recursiveDir(argv[1], ".");
 
-  // }
+   }
 
     //tuls(".");
     //tuls("..");
@@ -36,44 +38,50 @@ int main(int argc, char const *argv[]) {
     return 0;
 }
 
-//void recursiveDir(const char *string) {
-//list the directoru
-/*
+void recursiveDir(const char *string, const char *dir) {
+
+    //list the directoru
     struct dirent *d;
     DIR *dh = opendir(dir);
     if(!dh){
 
-    perror("tuls: cannot open directory\n");
+        perror("tuls: cannot open directory\n");
 
-    exit(EXIT_FAILURE);
+        exit(EXIT_FAILURE);
     }
     // while( (direntStructPtr = readdir(DIRPtr)) != NULL){}
     d = readdir(dh);
     while(d != NULL){
-    //skips over
-    //if(d->d_name[0] == '.' || d->d_name[0] == "..") {
-    //continue;
-    //}
-    if((strcmp(d->d_name, ".") == 0) && (strcmp(d->d_name, "..") == 0)){
-    continue;
-    }
-    printf("%s \n", d->d_name);
+        //skips over
+        //if(d->d_name[0] == '.' || d->d_name[0] == "..") {
+            //continue;
+        //}
+        if((strcmp(d->d_name[0], ".") == 0) && (strcmp(d->d_name[0], "..") == 0)){
 
-    if((d = readdir(dh)) == DT_DIR){
-    //array size recomended from discord
-    char path[4096] = {0};
-    strcat(path, dir);
-    strcat(path,"/");
-    strcat(path, (d=readdir(dh)->d_name));
-    tuls(path);
-    }
+        }
+        else{
+            printf("%s \n", d->d_name);
 
-    // d = readdir(dh);
+            int ret = 1;
+            ret = checkDir(dir);
+            //if((d = readdir(dh)) == DT_DIR){
+            if(ret == 0){
+                //array size recomended from discord
+                char path[4096] = {0};
+                strcat(path, dir);
+                strcat(path,"/");
+                strcat(path, (d=readdir(dh)->d_name));
+                tuls(path);
+            }
+        }
+
+
+      // d = readdir(dh);
 
     }
     closedir(dh);
-    */
-//}
+
+}
 
 void tuls(const char *dir) {
     //list the directoru
@@ -93,22 +101,33 @@ void tuls(const char *dir) {
             //continue;
         //}
         if((strcmp(d->d_name, ".") == 0) && (strcmp(d->d_name, "..") == 0)){
-            continue;
+
         }
-       printf("%s \n", d->d_name);
+        else{
+            printf("%s \n", d->d_name);
 
-       if((d = readdir(dh)) == DT_DIR){
-           //array size recomended from discord
-           char path[4096] = {0};
-           strcat(path, dir);
-           strcat(path,"/");
-           strcat(path, (d=readdir(dh)->d_name));
-           tuls(path);
-       }
 
-      // d = readdir(dh);
+            if((d = readdir(dh)) == DT_DIR){
+                //array size recomended from discord
+                char path[4096] = {0};
+                strcat(path, dir);
+                strcat(path,"/");
+                strcat(path, (d=readdir(dh)->d_name));
+                tuls(path);
+            }
+        }
+
+
+      //d = readdir(dh);
 
     }
     closedir(dh);
 }
+
+int checkDir(const char *filename) {
+    struct stat path;
+    stat(filename, &path);
+    return S_ISREG(path.st_mode);
+}
+
 

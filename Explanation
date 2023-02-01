@@ -1,0 +1,13 @@
+  My tuls.c project consisted of three functions and a main method. My main method simply checks the number of arguments.
+If there are greater than two or less than zero arguments then and error occurs and the program fails. If there are none
+ore one argument then the program calls my tuls function which prints out all the files. If there are two arguments
+then the main method calls my recursive function which also uses the checkDir function.
+  While making this I found the recursive part rather difficult. My original recursive function was working for 
+ printing out all the file names, but not the content connected to the directory. So I kept that in the tuls functio
+ because it was doing the job for the call with no arguments. I decided to take that code, and modify it for the 
+ recursive function.
+  When debuging the assignment, I found that my tuls function was not working recursively because it was skipping
+ over my if statement in the while loop. So I decided to use stat to check if a file was a directory. This seemed
+ to work when testing it, but I was running into a problem. I was unable to eliminate the "." and ".."s. So the 
+ function would creat an infinite directory of "./../../". Unfourtunately, I was not able to fix this problem 
+ before the lab was due. So I submited what I had, and will explain further in my demo.

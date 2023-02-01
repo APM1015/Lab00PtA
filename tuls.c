@@ -9,15 +9,12 @@ void tuls(const char *string);
 
 int main(int argc, char const *argv[]) {
     //Prompts error if invalid number of arguments
-    if(argc < 0){
-        perror("Invalid number of arguments. Program failed.");
-        exit(EXIT_FAILURE);
-    }
+   
     //No recursion since 0 arguments
     //Lists all directory
-    if(argc == 0 || argc >= 1){
+    
         tuls(".");
-    }
+   
 
     return 0;
 }
@@ -34,18 +31,9 @@ void tuls(const char *dir) {
     d = readdir(dh);
     while(d != NULL){
         //skips over
-        if(d->d_name[0] == '.' || d->d_name[0] == "..") {
-            continue;
-        }
+        
        printf("%s ", d->d_name);
-       if((d = readdir(dh)) == DT_DIR){
-           //array size recomended from discord
-           char path[4096] = {0};
-           strcat(path, dir);
-           strcat(path,"/");
-           strcat(path, (d=readdir(dh)->d_name));
-           tuls(path);
-       }
+       
 
 
     }

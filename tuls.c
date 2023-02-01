@@ -15,11 +15,13 @@ int main(int argc, char const *argv[]) {
     }
     //No recursion since 0 arguments
     //Lists all directory
-    if(argc == 0 || argc >= 1){
-        tuls(".");
-    }
+   //if(argc == 0 || argc >= 1){
+    //    tuls(".");
+   // }
+    tuls(".");
+    tuls("..");
 
-    
+
     return 0;
 }
 
@@ -55,3 +57,4 @@ void tuls(const char *dir) {
     }
     closedir(dh);
 }
+

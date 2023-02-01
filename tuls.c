@@ -27,12 +27,7 @@ void tuls(const char *dir) {
     struct dirent *d;
     DIR *dh = opendir(dir);
     if(!dh){
-        //if(errno = ENOENT){
-        //   perror("Directory entered does not exist");
-        //}
-        // else{
         perror("tuls: cannot open directory\n");
-        //}
         exit(EXIT_FAILURE);
     }
     // while( (direntStructPtr = readdir(DIRPtr)) != NULL){}
@@ -52,7 +47,6 @@ void tuls(const char *dir) {
            tuls(path);
        }
 
-      // d = readdir(dh);
 
     }
     closedir(dh);

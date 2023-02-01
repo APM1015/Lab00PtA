@@ -36,9 +36,10 @@ void tuls(const char *dir) {
         exit(EXIT_FAILURE);
     }
     // while( (direntStructPtr = readdir(DIRPtr)) != NULL){}
-    while((d = readdir(dh)) != NULL){
+    d = readdir(dh);
+    while(d != NULL){
         //skips over
-        if(d->d_name[0] == '.' || d->d_name[0] == '..' ) {
+        if(d->d_name[0] == '.' || d->d_name[0] == "..") {
             continue;
         }
        printf("%s ", d->d_name);

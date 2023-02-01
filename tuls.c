@@ -33,6 +33,7 @@ void tuls(const char *dir) {
         //skips over
         
        printf("%s ", d->d_name);
+        d = readdir(dh);
        
 
 
